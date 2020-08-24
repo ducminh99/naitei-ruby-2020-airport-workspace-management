@@ -36,7 +36,7 @@ User.create(
   email: 'admin@gmail.com',
   password: '123456',
   password_confirmation: '123456',
-  address: 'Ha Noi',
+  address: 'Ha Noiiiii',
   phone: '0123456789',
   shift_id: 1,
   position_id: 3,
