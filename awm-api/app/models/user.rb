@@ -5,6 +5,7 @@ class User < ApplicationRecord
   LOGIN_PARAMS = %i(email password).freeze
   PASSWORD_RESET_PARAMS = %i(email password password_confirmation).freeze
   UPDATE_PROFILE_PARAMS = %i(name email gender_id shift_id position_id unit_id user_status_id).freeze
+  LIMIT_UPDATE_PROFILE_PARAMS = %i(name email gender_id shift_id unit_id user_status_id).freeze
   # rubocop:enable Layout/LineLength
 
   attr_accessor :reset_token
