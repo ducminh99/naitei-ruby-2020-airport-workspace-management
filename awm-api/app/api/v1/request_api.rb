@@ -11,7 +11,7 @@ class RequestApi < ApiV1
       requires :absence_day, type: Integer, message: I18n.t("errors.required")
     end
     post "/new" do
-      manager = User.get_unit_manager(current_user.unit_id)
+      manager = User.get_unit_manager(current_user.unit_id)[0]
 
       data = valid_params(params, Request::UPDATE_FORM_PARAMS)
       data[:unit_id] = current_user.unit_id
@@ -48,11 +48,29 @@ class RequestApi < ApiV1
     put "/:id/approve" do
       valid_request params[:id]
       error!(I18n.t("errors.not_allowed"), :forbidden) unless authorized_one_of %w(Manager)
-      if request = Request.update(params[:id], {request_status_id: Settings.approved_status_id})
+
+      request = Request.find_by id: params[:id]
+      day = Time.at.utc(request.absence_day).day
+      month = Time.at.utc(request.absence_day).month
+      year = Time.at.utc(request.absence_day).year
+
+      ActiveRecord::Base.transaction do
+        request.update!(request_status_id: Settings.approved_status_id)
+        WorkTime.create!(
+          user_id: request.requester_id,
+          shift_id: request.requester.shift_id,
+          work_time_status_id: Settings.absence_status_id,
+          time_start: nil,
+          time_end: nil,
+          day: day,
+          month: month,
+          year: year
+        )
         render_success_response(:ok, RequestFormat, request, I18n.t("success.update"))
-      else
-        error!(I18n.t("errors.update"), :bad_request)
+        true
       end
+    rescue ActiveRecord::RecordInvalid
+      error!(I18n.t("errors.update"), :bad_request)
     end
 
     desc "Only Manager can reject request"
