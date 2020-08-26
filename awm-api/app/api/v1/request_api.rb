@@ -24,9 +24,24 @@ class RequestApi < ApiV1
                                  end
 
       request = Request.create data
-      return render_success_response(:ok, RequestFormat, request, I18n.t("success.request")) if request.valid?
+      if request.valid?
+        return render_success_response(:ok, RequestResFormat, {data: request}, I18n.t("success.request"))
+      end
 
       error!(request.full_messages[0], :bad_request)
+    end
+
+    desc "Only valid user or manager of request unit can get request details"
+    params do
+      requires :request_id, type: Integer, message: I18n.t("errors.required")
+    end
+    get "/:request_id" do
+      request = valid_request params[:request_id]
+      unless valid_user(params[:request_id]) || valid_manager(params[:request_id])
+        error!(I18n.t("errors.not_allowed"), :forbidden)
+      end
+
+      render_success_response(:ok, RequestResFormat, {data: request}, I18n.t("success.common"))
     end
 
     desc "Update request form"
@@ -38,7 +53,7 @@ class RequestApi < ApiV1
       valid_user(params[:id])
       data = valid_params(params, Request::UPDATE_FORM_PARAMS)
       if request = Request.update(params[:id], data)
-        render_success_response(:ok, RequestFormat, request, I18n.t("success.update"))
+        render_success_response(:ok, RequestResFormat, {data: request}, I18n.t("success.update"))
       else
         error!(I18n.t("errors.update"), :bad_request)
       end
@@ -66,7 +81,7 @@ class RequestApi < ApiV1
           month: month,
           year: year
         )
-        render_success_response(:ok, RequestFormat, request, I18n.t("success.update"))
+        render_success_response(:ok, RequestResFormat, {data: request}, I18n.t("success.update"))
         true
       end
     rescue ActiveRecord::RecordInvalid
@@ -78,10 +93,35 @@ class RequestApi < ApiV1
       valid_request params[:id]
       error!(I18n.t("errors.not_allowed"), :forbidden) unless authorized_one_of %w(Manager)
       if request = Request.update(params[:id], {request_status_id: Settings.rejected_status_id})
-        render_success_response(:ok, RequestFormat, request, I18n.t("success.update"))
+        render_success_response(:ok, RequestResFormat, {data: request}, I18n.t("success.update"))
       else
         error!(I18n.t("errors.update"), :bad_request)
       end
+    end
+  end
+
+  namespace :unit do
+    before do
+      authenticated
+    end
+
+    desc "Get all unit requests"
+    get "/requests" do
+      error!(I18n.t("errors.not_allowed"), :forbidden) unless authorized_one_of %w(Manager)
+      requests = Request.filter_unit(current_user.unit_id)
+      return render_success_response(:ok, RequestResFormat, {data: requests}, I18n.t("success.common"))
+    end
+  end
+
+  namespace :profile do
+    before do
+      authenticated
+    end
+
+    desc "Get all requests yourself"
+    get "/requests" do
+      requests = Request.filter_requester(current_user.id)
+      return render_success_response(:ok, RequestResFormat, {data: requests}, I18n.t("success.common"))
     end
   end
   # rubocop:enable Metrics/BlockLength
