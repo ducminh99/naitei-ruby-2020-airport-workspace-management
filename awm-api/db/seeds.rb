@@ -4,7 +4,7 @@
 # Examples:
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
-#   Character.create(name: "Luke", movie: movies.first)
+#   Character.create(name: "Luke", movie: movies.first)aaaaaaaaaaaaaaaa
 
 Gender.create(name: "Male")
 Gender.create(name: "Female")
@@ -15,7 +15,7 @@ Position.create(name: "Manager")
 Position.create(name: "Admin")
 
 RequestStatus.create(name: "Pending")
-RequestStatus.create(name: "Aprroved")
+RequestStatus.create(name: "Approved")
 RequestStatus.create(name: "Rejected")
 
 Shift.create(name: "Shift 1", time_start: "06:30", time_end: "14:30")
