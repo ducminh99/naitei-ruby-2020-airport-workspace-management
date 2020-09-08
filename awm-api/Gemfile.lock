@@ -343,6 +343,7 @@ DEPENDENCIES
   loofah (= 2.6.0)
   minitest (= 5.14.1)
   mysql2 (>= 0.4.4)
+  nio4r (= 2.5.2)
   puma (~> 4.1)
   pusher
   rack-cors
