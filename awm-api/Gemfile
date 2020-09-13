@@ -27,6 +27,7 @@ gem "rails-i18n"
 gem "rubocop", "0.89.1"
 gem "sexp_processor", "4.15.0"
 gem "spring", "2.1.0"
+gem "sprockets-rails", "3.2.1"
 
 group :development do
   gem "listen", "~> 3.2"

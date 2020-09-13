@@ -361,6 +361,7 @@ DEPENDENCIES
   simplecov
   spring (= 2.1.0)
   spring-watcher-listen (~> 2.0.0)
+  sprockets-rails (= 3.2.1)
   tzinfo-data
   webdrivers
 
