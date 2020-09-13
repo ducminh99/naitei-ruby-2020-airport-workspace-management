@@ -52,14 +52,14 @@ class StatisticApi < ApiV1
         approved = Request.filter_status(member.id, Settings.approved_status_id).count
         rejected = Request.filter_status(member.id, Settings.rejected_status_id).count
         awol = if params[:month]
-                          member.day_offs.filter_time(params[:year], params[:month])[0].awol
-                        else
-                          member.day_offs.filter_year(params[:year]).sum_awol
+                 member.day_offs.filter_time(params[:year], params[:month])[0].awol
+               else
+                 member.day_offs.filter_year(params[:year]).sum_awol
                         end
         leave = if params[:month]
-                           member.day_offs.filter_time(params[:year], params[:month])[0].awol
-                         else
-                           member.day_offs.filter_year(params[:year]).sum_awol
+                  member.day_offs.filter_time(params[:year], params[:month])[0].awol
+                else
+                  member.day_offs.filter_year(params[:year]).sum_awol
                          end
         result = {
           id: member.id,
