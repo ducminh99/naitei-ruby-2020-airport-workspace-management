@@ -1,6 +1,6 @@
-class CreateDayOffMonths < ActiveRecord::Migration[6.0]
+class CreateDayOffs < ActiveRecord::Migration[6.0]
   def change
-    create_table :day_off_months do |t|
+    create_table :day_offs do |t|
       t.integer :year
       t.integer :month
       t.integer :awol

@@ -8,6 +8,7 @@ class Request < ApplicationRecord
 
   scope :filter_unit, ->(unit_id){where unit_id: unit_id}
   scope :filter_requester, ->(requester_id){where requester_id: requester_id}
+  scope :filter_status, ->(user_id, status_id){where request_status_id: status_id, requester_id: user_id}
 
   delegate :name, to: :unit, prefix: true
   delegate :name, to: :request_status, prefix: true

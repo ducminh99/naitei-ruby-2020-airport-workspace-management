@@ -74,13 +74,6 @@ User.create(
   )
   current_month = Time.now.month
   day_off_left = Faker::Number.between(from: 1, to: 9)
-  DayOffYear.create(
-    year: 2020,
-    day_off_left: day_off_left,
-    leave: current_month - day_off_left,
-    awol: Faker::Number.between(from: 1, to: 5),
-    user_id: user.id
-  )
 
   current_month.times do |month|
     days = 0
@@ -93,7 +86,7 @@ User.create(
       days = 29
     end
 
-    DayOffMonth.create(
+    DayOff.create(
       year: 2020,
       month: month + 1,
       awol: Faker::Number.between(from: 1, to: 2),

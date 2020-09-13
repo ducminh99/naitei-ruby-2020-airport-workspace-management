@@ -12,4 +12,5 @@ class ApiV1 < Grape::API
   mount UnitApi
   mount ShiftApi
   mount WorkTimeApi
+  mount StatisticApi
 end
