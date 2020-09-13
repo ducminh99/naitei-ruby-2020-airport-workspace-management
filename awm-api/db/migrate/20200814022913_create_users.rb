@@ -8,6 +8,7 @@ class CreateUsers < ActiveRecord::Migration[6.0]
       t.string :password_digest
       t.string :remember_digest
       t.string :reset_digest
+      t.string :avatarURL, default: "/"
       t.datetime :reset_sent_at
       t.string :address
       t.string :channel

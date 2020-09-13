@@ -58,6 +58,8 @@ class User < ApplicationRecord
     allow_nil: true
   validates :channel, presence: true,
     allow_nil: false
+  validates :avatarURL, presence: true,
+    allow_nil: true
 
   before_save :downcase_email
 

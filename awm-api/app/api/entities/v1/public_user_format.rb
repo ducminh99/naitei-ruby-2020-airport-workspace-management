@@ -6,4 +6,5 @@ class PublicUserFormat < Grape::Entity
   expose :position_name
   expose :unit_name
   expose :birthday
+  expose :avatarURL
 end

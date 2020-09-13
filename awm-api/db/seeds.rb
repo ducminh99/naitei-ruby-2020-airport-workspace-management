@@ -50,7 +50,8 @@ User.create(
   unit_id: 2,
   gender_id: 1,
   user_status_id: 2,
-  birthday: Time.now.to_i.to_s << "000"
+  birthday: Time.now.to_i.to_s << "000",
+  avatarURL: "/"
 )
 
 10.times do |n|

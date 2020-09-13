@@ -19,6 +19,7 @@ class UserApi < ApiV1
       requires :shift_id, type: Integer, message: I18n.t("errors.required")
       requires :position_id, type: Integer, message: I18n.t("errors.required")
       requires :unit_id, type: Integer, message: I18n.t("errors.required")
+      optional :avatarURL, type: String
     end
     post "/signup" do
       data = valid_params(params, User::PARAMS)
@@ -42,6 +43,15 @@ class UserApi < ApiV1
 
     desc "Show profile"
     get "/" do
+      return render_success_response(:ok, PrivateUserFormat, current_user, I18n.t("success.signup"))
+    end
+
+    desc "Update avatarURL"
+    params do
+      requires :avatarURL, type: String, message: I18n.t("errors.required")
+    end
+    put "/avatar" do
+      current_user.update(avatarURL: params[:avatarURL])
       return render_success_response(:ok, PrivateUserFormat, current_user, I18n.t("success.signup"))
     end
   end

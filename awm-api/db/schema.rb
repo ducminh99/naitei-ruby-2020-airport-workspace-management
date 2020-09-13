@@ -99,6 +99,7 @@ ActiveRecord::Schema.define(version: 2020_09_04_062442) do
     t.string "password_digest"
     t.string "remember_digest"
     t.string "reset_digest"
+    t.string "avatarURL"
     t.datetime "reset_sent_at"
     t.string "address"
     t.string "channel"

@@ -10,4 +10,5 @@ class PrivateUserFormat < Grape::Entity
   expose :user_status_name
   expose :birthday
   expose :phone
+  expose :avatarURL
 end
