@@ -32,7 +32,7 @@ class RequestApi < ApiV1
         absence_days.each do |absence_day|
           time = Time.zone.at(absence_day.to_i)
           if time < Time.now.to_i
-            worktime = WorkTime.find_by(user_id: request.requester_id).filter_time(time.year, time.month, time.day)[0]
+            worktime = WorkTime.filter_requester(current_user.id).filter_time(time.year, time.month, time.day)[0]
             worktime.update!(
               work_time_status_id: Settings.absence_status_id,
               time_start: nil,

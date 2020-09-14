@@ -21,9 +21,9 @@ module RequestHelper
 
   def update_day_off requester_id, year, month
     requester = User.find_by id: requester_id
-    day_off_month = requester.day_off_months.filter_time(year, month)[0]
-    day_off_month.update!(
-      awol: day_off_month.awol + 1
+    day_off = requester.day_offs.filter_time(year, month)[0]
+    day_off.update!(
+      awol: day_off.awol + 1
     )
   end
 end
