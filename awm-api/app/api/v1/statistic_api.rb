@@ -17,9 +17,9 @@ class StatisticApi < ApiV1
                current_user.day_offs.filter_year(params[:year]).sum_awol
              end
       leave = if params[:month]
-                current_user.day_offs.filter_time(params[:year], params[:month])[0].awol
+                current_user.day_offs.filter_time(params[:year], params[:month])[0].leave
               else
-                current_user.day_offs.filter_year(params[:year]).sum_awol
+                current_user.day_offs.filter_year(params[:year]).sum_leave
               end
       render_success_response(:ok, DayOffFormat, {awol: awol, leave: leave}, I18n.t("success.common"))
     end

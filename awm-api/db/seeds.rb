@@ -90,8 +90,8 @@ User.create(
     DayOff.create(
       year: 2020,
       month: month + 1,
-      awol: Faker::Number.between(from: 1, to: 2),
-      leave: Faker::Number.between(from: 1, to: 2),
+      awol: 0,
+      leave: 0,
       user_id: user.id
     )
     days = Time.now.day if month + 1 == current_month

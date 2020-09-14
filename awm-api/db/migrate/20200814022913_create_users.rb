@@ -8,7 +8,7 @@ class CreateUsers < ActiveRecord::Migration[6.0]
       t.string :password_digest
       t.string :remember_digest
       t.string :reset_digest
-      t.string :avatarURL, default: "/"
+      t.string :avatarURL, default: "https://www.gravatar.com/avatar/86b862d65a8e66b9db99136cd16ff394?default=https%3A%2F%2Fcloud.digitalocean.com%2Favatars%2Fdefault1.png&amp;secure=true"
       t.datetime :reset_sent_at
       t.string :address
       t.string :channel

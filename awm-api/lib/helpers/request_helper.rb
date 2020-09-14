@@ -23,7 +23,7 @@ module RequestHelper
     requester = User.find_by id: requester_id
     day_off = requester.day_offs.filter_time(year, month)[0]
     day_off.update!(
-      awol: day_off.awol + 1
+      leave: day_off.leave + 1
     )
   end
 end
